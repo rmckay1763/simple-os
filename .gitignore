@@ -1,0 +1,6 @@
+.vscode/
+*.o
+*.img
+*.exe
+boot1
+boot2
