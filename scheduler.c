@@ -1,23 +1,30 @@
-/*------------------------------ scheduler.c ----------------------------------
-
-    Implements a process ready queue and a process blocked queue.
-
-    Author: Robert McKay
-    Since: 11/26/2021
-
------------------------------------------------------------------------------*/
+/**
+ * @file scheduler.c
+ * @author Robert McKay
+ * @brief Implements a LIFO queue for process scheduling.
+ * @version 0.1
+ * @date 2022-05-12
+ * 
+ */
 
 #include "scheduler.h"
 
-/* structures for queue */
+/**
+ * @brief Array of nodes to allocate to the queues.
+ * 
+ */
 node_t nodes[MAX_PROCESSES];
+
+/**
+ * @brief Stores reference to the pcb of the current process.
+ * The process dispatcher in boot2.S needs this to save/restore state.
+ * 
+ */
+pcb_t current_process;
+
 queue_t ready_queue;
 queue_t blocked_queue;
 
-/* global variable for current process */
-pcb_t current_process;
-
-/*------------------------------ init_queue -------------------------------- */
 void init_queues() {
     for (int i = 0; i < MAX_PROCESSES; i++) {
         nodes[i].pcb = NULL;
@@ -29,7 +36,6 @@ void init_queues() {
     blocked_queue.tail = NULL;
 }
 
-/*------------------------------ alloc_node -------------------------------- */
 node_t* alloc_node() {
     for (int i = 0; i < MAX_PROCESSES; i++) {
         if (nodes[i].pcb == NULL) {
@@ -40,13 +46,11 @@ node_t* alloc_node() {
     return NULL;
 }
 
-/*------------------------------- free_node -------------------------------- */
 void free_node(node_t *node) {
     node->pcb = NULL;
     node->next = NULL;
 }
 
-/*--------------------------- enqueue_process ------------------------------ */
 void enqueue_process(queue_t *queue, pcb_t *pcb) {
     node_t* new_node = alloc_node();
     if (new_node == NULL) {
@@ -62,7 +66,6 @@ void enqueue_process(queue_t *queue, pcb_t *pcb) {
     queue->tail = new_node;
 }
 
-/*--------------------------- dequeue_process ------------------------------ */
 pcb_t* dequeue_process(queue_t *queue) {
     if (queue->head == NULL)
     {

@@ -1,11 +1,11 @@
-/*---------------------------------- buffer.c ---------------------------------
-
-    Implements a circular buffer for keyboard input.
-
-    Author: Robert McKay
-    Since: 10/25/2021
-
------------------------------------------------------------------------------*/
+/**
+ * @file buffer.c
+ * @author Robert McKay
+ * @brief Implements a circular buffer for keyboard input.
+ * @version 0.1
+ * @date 2022-05-12
+ * 
+ */
 
 #include "buffer.h"
 #include "scheduler.h"
@@ -17,7 +17,6 @@ char kbd_buffer[BUFFER_SIZE];
 int kbd_buf_head = EMPTY;
 int kbd_buf_tail = EMPTY;
 
-/*------------------------------- enqueue_char ------------------------------*/
 int enqueue_char(char value) {
     if (is_full() == TRUE) {
         return FALSE;
@@ -30,7 +29,6 @@ int enqueue_char(char value) {
     return TRUE;
 }
 
-/*------------------------------- dequeue_char ------------------------------*/
 char dequeue_char() {
     asm volatile ("cli");
     while (is_empty() == TRUE) {
@@ -47,7 +45,6 @@ char dequeue_char() {
     return head;
 }
 
-/*--------------------------------- is_empty --------------------------------*/
 int is_empty() {
     if (kbd_buf_head == EMPTY) {
         return TRUE;
@@ -56,7 +53,6 @@ int is_empty() {
     }
 }
 
-/*--------------------------------- is_full ---------------------------------*/
 int is_full() {
     if (kbd_buf_head == kbd_buf_tail + 1) {
         return TRUE;

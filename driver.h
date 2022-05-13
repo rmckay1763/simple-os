@@ -1,58 +1,55 @@
-/*--------------------------------- driver.h ----------------------------------
-
-    Header file for driver.c
-    driver.c implements a primitive os with process support and basic i/o.
-
-    Functions:
-        p_idle - function for initial process
-        p_keyboard - function for keyboard process
-        p1 - function for process 1
-        p2 - function for process 2
-        p3 - function for process 3
-        p4 - function for process 4
-        p5 - function for process 5
-
-    Author: Robert McKay
-    Since: 11/26/2021
-
------------------------------------------------------------------------------*/
+/**
+ * @file driver.h
+ * @author Robert McKay
+ * @brief Implements a primitive os with process support and basic i/o. 
+ * @version 0.1
+ * @date 2022-05-12
+ * 
+ */
 
 #ifndef DRIVER_H
 #define DRIVER_H
 
-/* -------------------------------- p_idle ------------------------------------
-   First process added to queue. Enables interrupts.
------------------------------------------------------------------------------*/
+/**
+ * @brief First process added to queue. Enables interrupts.
+ * 
+ */
 void p_idle();
 
-/* ------------------------------ p_keyboard ----------------------------------
-   Process for keyboard i/o.
------------------------------------------------------------------------------*/
+/**
+ * @brief Process for keyboard i/o.
+ * 
+ */
 void p_keyboard();
 
-/* ---------------------------------- p1 --------------------------------------
-   Example process.
------------------------------------------------------------------------------*/
+/**
+ * @brief Example process.
+ * 
+ */
 void p1();
 
-/* ---------------------------------- p2 --------------------------------------
-   Example process.
------------------------------------------------------------------------------*/
+/**
+ * @brief Example process.
+ * 
+ */
 void p2();
 
-/* ---------------------------------- p3 --------------------------------------
-   Example process.
------------------------------------------------------------------------------*/
+/**
+ * @brief Example process.
+ * 
+ */
 void p3();
 
-/* ---------------------------------- p4 --------------------------------------
-   Example process.
------------------------------------------------------------------------------*/
+/**
+ * @brief Example process.
+ * 
+ */
 void p4();
 
-/* ---------------------------------- p5 --------------------------------------
-   Example process.
------------------------------------------------------------------------------*/
+/**
+ * @brief Example process.
+ * 
+ */
 void p5();
 
 #endif

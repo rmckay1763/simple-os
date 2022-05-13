@@ -2,5 +2,6 @@
 *.o
 *.img
 *.exe
+*.list
 boot1
 boot2

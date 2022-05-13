@@ -1,24 +1,21 @@
-/*----------------------------------- itd.h -----------------------------------
-
-    Header file for idt.c
-    idt.c provides procedures to initialize the interrupt descriptor table.
-
-    Functions:
-        initIDTEntry - initialize a single IDT entry
-        initIDT - initialze the IDT table
-        setupPIC - configure the PIC
-
-    Author: Robert McKay
-    Since: 11/13/2021
-
------------------------------------------------------------------------------*/
+/**
+ * @file idt.h
+ * @author Robert McKay
+ * @brief Declares procedures to initialize the interrupt descriptor table.
+ * @version 0.1
+ * @date 2022-05-12
+ * 
+ */
 
 #ifndef IDT_H
 #define IDT_H
 
 #define IDT_SIZE 256
 
-/* Structure to represent a single interrupt descriptor */
+/**
+ * @brief Structure to represent a single interrupt descriptor.
+ * 
+ */
 struct idt_entry_s {
     unsigned short base_low16;
     unsigned short selector;
@@ -27,37 +24,48 @@ struct idt_entry_s {
     unsigned short base_hi16;
 } __attribute__ ((packed));
 
-/* Structure for the limit and base address of the IDT */
+/**
+ * @brief Structure for the limit and base address of the IDT.
+ * 
+ */
 struct idt_r_s {
     unsigned short limit;
     unsigned int base;
 } __attribute__ ((packed));
 
-/* type definitions */
+/**
+ * @brief Type definition for a single interrupt descriptor.
+ * 
+ */
 typedef struct idt_entry_s idt_entry_t;
+
+/**
+ * @brief Type definition for the base/limit of the IDT.
+ * 
+ */
 typedef struct idt_r_s idt_r_t;
 
-
-/* ----------------------------- initIDTEntry ---------------------------------
-    Initializes an entry in the IDT table.
-
-    Parameters:
-        entry - index of the the entry to initialize.
-        base - the memory address of the routine for the interrupt
-        selector - the code segment
-        access - access bits for the entry
------------------------------------------------------------------------------*/
+/**
+ * @brief Initializes an entry in the IDT table.
+ * 
+ * @param entry index of the the entry to initialize.
+ * @param base the memory address of the routine for the interrupt.
+ * @param selector the code segment.
+ * @param access access bits for the entry.
+ */
 void initIDTEntry(unsigned int entry, unsigned int base, 
                   unsigned short selector, unsigned char access);
 
-/* -------------------------------- initIDT -----------------------------------
-   Initializes the IDT
------------------------------------------------------------------------------*/
+/**
+ * @brief Initializes the Interrupt Descriptor Table.
+ * 
+ */
 void initIDT();
 
-/* -------------------------------- setupPIC ----------------------------------
-   Configures the PIC
------------------------------------------------------------------------------*/
+/**
+ * @brief Configures the Programmerable Interrupt Controller.
+ * 
+ */
 void setupPIC();
 
 #endif

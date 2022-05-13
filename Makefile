@@ -27,7 +27,7 @@ install: boot2 boot1 a.img
 # target to create image
 a.img:
 	bximage -mode=create -fd=1.44M  -q a.img
-	/sbin/mkdosfs a.img
+	mkdosfs a.img
 
 # target to create boot1
 boot1: boot1.asm boot2.exe

@@ -1,11 +1,11 @@
-/*------------------------------- process.c -----------------------------------
-
-    Provides support for multiprocessing.
-
-    Author: Robert McKay
-    Since: 11/13/2021
-
------------------------------------------------------------------------------*/
+/**
+ * @file process.c
+ * @author Robert McKay
+ * @brief Defines variables and functions to support multi processing.
+ * @version 0.1
+ * @date 2022-05-12
+ * 
+ */
 
 #include "process.h"
 #include "boot2.h"
@@ -16,7 +16,6 @@ int process_count = 0;
 pcb_t pcbs[MAX_PROCESSES];
 unsigned int stack[MAX_PROCESSES][STACK_SIZE];
 
-/*------------------------------- alloc_pcb -------------------------------- */
 pcb_t* alloc_pcb() {
     if (process_count < MAX_PROCESSES) {
         return &pcbs[process_count];
@@ -24,7 +23,6 @@ pcb_t* alloc_pcb() {
     return NULL;
 }
 
-/*------------------------------ alloc_stack ------------------------------- */
 unsigned int* alloc_stack() {
     if (process_count < MAX_PROCESSES) {
         return &stack[process_count][STACK_SIZE];
@@ -32,7 +30,6 @@ unsigned int* alloc_stack() {
     return NULL;
 }
 
-/*---------------------------- create_process ------------------------------ */
 int create_process(unsigned int process_entry) {
     pcb_t* pcb = alloc_pcb();
     unsigned int* tos = alloc_stack();
@@ -47,7 +44,6 @@ int create_process(unsigned int process_entry) {
     return EXIT_SUCCESS;
 }
 
-/*------------------------------- init_stack ------------------------------- */
 void init_stack(unsigned int** tos, unsigned int process_entry) {
     
     push(tos, (unsigned int)go);
@@ -64,7 +60,6 @@ void init_stack(unsigned int** tos, unsigned int process_entry) {
     }
 }
 
-/*--------------------------------- push ----------------------------------- */
 void push(unsigned int** tos, unsigned int value) {
     *tos = *tos - 1;
     **tos = value;

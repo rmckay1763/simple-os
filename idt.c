@@ -1,20 +1,27 @@
-/*----------------------------------- idt.c -----------------------------------
-
-    Initializes the interrupt descriptor table.
-
-    Author: Robert McKay
-    Since: 11/13/2021
-    
------------------------------------------------------------------------------*/
+/**
+ * @file idt.c
+ * @author Robert McKay
+ * @brief Defines procedures to initialize the interrupt descriptor table.
+ * @version 0.1
+ * @date 2022-05-12
+ * 
+ */
 
 #include "boot2.h"
 #include "idt.h"
 
-/* global variables for IDT */
+/**
+ * @brief Interrupt Descriptor Table.
+ * 
+ */
 idt_entry_t idt[IDT_SIZE];
+
+/**
+ * @brief Base address and limit of IDT.
+ * 
+ */
 idt_r_t idtr;
 
-/* ----------------------------- initIDTEntry -------------------------------*/
 void initIDTEntry(unsigned int entry, unsigned int base, 
                   unsigned short selector, unsigned char access) {
     idt[entry].base_low16 = (base & 0x0000ffff);
@@ -24,7 +31,6 @@ void initIDTEntry(unsigned int entry, unsigned int base,
     idt[entry].base_hi16 = (base & 0xffff0000) >> 16;
 }
 
-/* -------------------------------- initIDT ---------------------------------*/
 void initIDT() {
     /* entries 0-31 */
     for (unsigned int entry = 0; entry < 31; entry++) {
@@ -48,7 +54,6 @@ void initIDT() {
     lidtr((unsigned int)&idtr);
 }
 
-/* -------------------------------- setupPIC --------------------------------*/
 void setupPIC() {
     outportb(0x20, 0x11);   /* start 8259 master initialization */
     outportb(0xa0, 0x11);   /* start 8259 slave initialization */

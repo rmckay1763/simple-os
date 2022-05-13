@@ -1,18 +1,13 @@
-/*--------------------------------- keyboard.h --------------------------------
-
-    Header file for keyboard.c
-    keyboard.c implements a keyboard interupt handler.
-
-    Functions:
-        kbd_handler - handles keyboard interrupts.
-        tranlsate_char - translates scancode to char.
-        translate_char_normal - translates scancode if shift key not active.
-        translate_char_shift - translate scancode if shift key is active.
-
-    Author: Robert McKay
-    Since: 10/25/2021
-
------------------------------------------------------------------------------*/
+/**
+ * @file keyboard.h
+ * @author Robert McKay
+ * @brief Implements a keyboard interupt handler.
+ * @version 0.1
+ * @date 2022-05-12
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
@@ -55,40 +50,35 @@
 #define Z_ROW_START 0x2c
 #define Z_ROW_END 0x35
 
-/*------------------------------- kbd_handler ---------------------------------
-    Handles keyboard interrupts.
------------------------------------------------------------------------------*/
+/**
+ * @brief Handles keyboard interrupts.
+ * 
+ * @param scancode The scancode generated from user input.
+ */
 void kbd_handler(unsigned int scancode);
 
-/*---------------------------- translate_scancode -----------------------------
-    Translates given scancode to corresponding character.
-    Calls helper function depending on state of shift key.
-
-    Paremeters:
-        scancode - the scancode to translate.
-
-    Returns: the char associated with the scancode.
------------------------------------------------------------------------------*/
+/**
+ * @brief Translates given scancode to corresponding character.
+ * 
+ * @param scancode The scancode to translate.
+ * @return char The char associated with the scancode.
+ */
 char translate_scancode(unsigned int scancode);
 
-/*------------------------ translate_scancode_normal --------------------------
-    Translates scancode given shift key not active.
-
-    Paremeters:
-        scancode - the scancode to translate.
-
-    Returns: the char associated with the scancode.
------------------------------------------------------------------------------*/
+/**
+ * @brief Translates scancode given shift key not active.
+ * 
+ * @param scancode The scancode to translate.
+ * @return char The char associated with the scancode.
+ */
 char translate_scancode_normal(unsigned int scancode);
 
-/*------------------------ translate_scancode_shift ---------------------------
-    Translates scancode given shift key is active.
-
-    Paremeters:
-        scancode - the scancode to translate.
-
-    Returns: the char associated with the scancode.
------------------------------------------------------------------------------*/
+/**
+ * @brief Translates scancode given shift key is active.
+ * 
+ * @param scancode The scancode to translate.
+ * @return char The char associated with the scancode.
+ */
 char translate_scancode_shift(unsigned int scancode);
 
 #endif

@@ -1,19 +1,11 @@
-/*------------------------------ scheduler.h ----------------------------------
-
-    Header file for scheduler.c
-    scheduler.c implements a LIFO ready queue and blocked queue.
-
-    Functions:
-        init_queues - initialiezes ready queue and blocked queue.
-        alloc_node - allocates a node for the queue.
-        free_node - deallocates a node.
-        dequeue_process - removes the process at the front of the queue.
-        enqueue_process - adds a process to the end of the queue.
-    
-    Author: Robert McKay
-    Since: 11/26/2021
-
------------------------------------------------------------------------------*/
+/**
+ * @file scheduler.h
+ * @author Robert McKay
+ * @brief Implements a LIFO queue for process scheduling.
+ * @version 0.1
+ * @date 2022-05-12
+ * 
+ */
 
 #ifndef SCHEDULER_H
 #define SCHEDULER_H
@@ -23,48 +15,73 @@
 
 #include "process.h"
 
-/* structure for a queue node */
+/**
+ * @brief Structure for a queue node.
+ * 
+ */
 struct node_s {
     pcb_t* pcb;
     struct node_s* next;
 };
+
+/**
+ * @brief Type definitions for a queue node.
+ * 
+ */
 typedef struct node_s node_t;
 
-/* structure for a queue */
+/**
+ * @brief Structure for a queue
+ * 
+ */
 struct queue_s {
     node_t *head;
     node_t *tail;
 };
+
+/**
+ * @brief Type definition for a queue.
+ * 
+ */
 typedef struct queue_s queue_t;
 
-/* make queues visible to other files */
+/**
+ * @brief Queue for processes ready to execute.
+ * 
+ */
 extern queue_t ready_queue;
+
+/**
+ * @brief Queue for processes in blocked state.
+ * 
+ */
 extern queue_t blocked_queue;
 
-/*------------------------------ init_queue -----------------------------------
-    Initializes the queues. Sets all nodes to null.
------------------------------------------------------------------------------*/
+/**
+ * @brief Initializes the ready/blocked queues. Sets all nodes to null.
+ * 
+ */
 void init_queues();
 
-/*------------------------------ alloc_node -----------------------------------
-    Allocates a new node for the queue.
-
-    Returns: a pointer to the new node.
------------------------------------------------------------------------------*/
+/**
+ * @brief Allocates a new node for the queue.
+ * 
+ * @return node_t* Pointer to the new node.
+ */
 node_t* alloc_node();
 
-/*------------------------------ alloc_node -----------------------------------
-    Deallocates a node from the queue.
------------------------------------------------------------------------------*/
+/**
+ * @brief Deallocates a node from the queue.
+ * 
+ */
 void free_node();
 
-/*-------------------------- enqueue_process ----------------------------------
-    Adds a process to the end of the queue.
-
-    Parameters:
-        queue - the queue to enqueue into.
-        pcb - the pcb of the process to add.
------------------------------------------------------------------------------*/
+/**
+ * @brief Adds a process to the end of the queue.
+ * 
+ * @param queue The queue to enqueue into.
+ * @param pcb The pcb of the process to enqueue.
+ */
 void enqueue_process(queue_t *queue, pcb_t* pcb);
 
 /*-------------------------- dequeue_process ----------------------------------
@@ -75,6 +92,13 @@ void enqueue_process(queue_t *queue, pcb_t* pcb);
 
     Returns: a pointer (as unsigned int) to the processes top of stack.
 -----------------------------------------------------------------------------*/
+
+/**
+ * @brief Removes a process from a queue.
+ * 
+ * @param queue The queue to dequeue from.
+ * @return pcb_t* Pointer to the PCB of the dequeued process.
+ */
 pcb_t* dequeue_process(queue_t *queue);
 
 #endif

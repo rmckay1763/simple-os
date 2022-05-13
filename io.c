@@ -1,16 +1,18 @@
-/*----------------------------------- io.c ------------------------------------
-    Implements functions to write to video memory.
-    External functions defined in boot2.S
-    See header file for more details.
-
-    Author: Robert McKay (convert_num, convert_num_h)
-    Since: 11/26/2021
------------------------------------------------------------------------------*/
+/**
+ * @file io.c
+ * @author Robert McKay
+ * @brief Implements functions to write to video memory.
+ * @note External functions defined in boot2.S.
+ * @version 0.1
+ * @date 2022-05-12
+ * 
+ */
 
 #include "io.h"
 #include "boot2.h"
 
 /* global variables for screen I/O */
+
 int start_row;
 int current_row;
 int current_column;
@@ -19,7 +21,6 @@ char tab[TAB_SIZE + 1];
 char space = WHITESPACE;
 char end = NULL_TERMINATOR;
 
-/*------------------------------ init_screen --------------------------------*/
 void init_screen() {
     start_row = 0;
     current_row = 0;
@@ -34,7 +35,6 @@ void init_screen() {
     clearscr();
 }
 
-/*--------------------------------- clearscr --------------------------------*/
 void clearscr() {
     int length = NUM_COLS * NUM_ROWS;
     char whitespace[length];
@@ -46,7 +46,6 @@ void clearscr() {
     current_column = 0;
 }
 
-/*-------------------------------- println ----------------------------------*/
 void println(char* text) {
     if (current_row > MAX_ROW) {
         k_scroll();
@@ -58,7 +57,6 @@ void println(char* text) {
     current_column = (current_column + num_to_print) % NUM_COLS;
 }
 
-/*------------------------------ convert_num --------------------------------*/
 void convert_num(unsigned int num, char buf[]) {
     if (num == 0) {
         buf[0] = '0';
@@ -68,7 +66,6 @@ void convert_num(unsigned int num, char buf[]) {
     }
 }
 
-/*----------------------------- convert_num_h -------------------------------*/
 int convert_num_h(unsigned int num, char buf[]) {
     if (num == 0) {
         return 0;
@@ -79,7 +76,6 @@ int convert_num_h(unsigned int num, char buf[]) {
     return idx + 1;
 }
 
-/*------------------------------- string_size -------------------------------*/
 int string_size(char* ptr) {
     int length = 0;
     while (*(ptr + length) != NULL_TERMINATOR) {
@@ -88,14 +84,12 @@ int string_size(char* ptr) {
     return length;
 }
 
-/*-------------------------------- new_line ---------------------------------*/
 void new_line() {
     row_tails[current_row] = current_column;
     current_column = 0;
     current_row++;
 }
 
-/*------------------------------- backspace ---------------------------------*/
 void backspace() {
     if (current_row == start_row && current_column == 0) {
         return;
@@ -111,7 +105,6 @@ void backspace() {
     current_column--;
 }
 
-/*------------------------------- tab_over ----------------------------------*/
 void tab_over() {
     if (MAX_COL - current_column <= TAB_SIZE) {
         new_line();

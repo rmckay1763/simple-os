@@ -1,11 +1,11 @@
-/*--------------------------------- keyboard.c --------------------------------
-
-    Implements a keyboard interupt handler.
-
-    Author: Robert McKay
-    Since: 10/25/2021
-
------------------------------------------------------------------------------*/
+/**
+ * @file keyboard.c
+ * @author Robert McKay
+ * @brief Implements a keyboard interupt handler.
+ * @version 0.1
+ * @date 2022-05-12
+ * 
+ */
 
 #include "keyboard.h"
 #include "buffer.h"
@@ -13,6 +13,7 @@
 #include "process.h"
 
 /* constants for ranges of keys */
+
 static const char NUMBER_ROW[] = "1234567890-=";
 static const char Q_ROW[] = "qwertyuiop[]";
 static const char A_ROW[] = "asdfghjkl;\'";
@@ -23,10 +24,10 @@ static const char A_ROW_SHIFT[] = "ASDFGHJKL:\"";
 static const char Z_ROW_SHIFT[] = "ZXCVBNM<>\?";
 
 /* global variable to track state */
+
 int shift_active = FALSE;
 int caps_active = FALSE;
 
-/*------------------------------- kbd_handler -------------------------------*/
 void kbd_handler(unsigned int scancode) {
     if (scancode == FALSE || is_full() == TRUE) {
         return;
@@ -42,7 +43,6 @@ void kbd_handler(unsigned int scancode) {
     }
 }
 
-/*----------------------------- translate_scancode---------------------------*/
 char translate_scancode(unsigned int scancode) {
 
     /* check for a shift key event or caps lock event */
@@ -84,7 +84,6 @@ char translate_scancode(unsigned int scancode) {
     return key;
 }
 
-/*------------------------ translate_scancode_normal ------------------------*/
 char translate_scancode_normal(unsigned int scancode) {
 
     /* number row: 1 through = (equals sign) */
@@ -119,7 +118,6 @@ char translate_scancode_normal(unsigned int scancode) {
     }
 }
 
-/*------------------------ translate_scancode_shift -------------------------*/
 char translate_scancode_shift(unsigned int scancode) {
 
     /* number row: 1 through + (plus sign) */

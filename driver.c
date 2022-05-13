@@ -1,18 +1,11 @@
-/*--------------------------------- driver.c ----------------------------------
-
-    Implements a primitive OS with a simple IDT.
-    Screen I/O implementd in io.c
-    IDT implemented in idt.c
-    Keyboard interrupt handler implemented in keyboard.c
-    Process support implemented in process.c
-    Process scheduling implemented in scheduler.c
-
-    See header files for more details.
-
-    Author: Robert McKay
-    Since: 11/26/2021
-    
------------------------------------------------------------------------------*/
+/**
+ * @file driver.c
+ * @author Robert McKay
+ * @brief Implements a primtitive os with process support and basic i/o.
+ * @version 0.1
+ * @date 2022-05-12
+ * 
+ */
 
 #include "driver.h"
 #include "boot2.h"
@@ -23,7 +16,6 @@
 #include "process.h"
 #include "scheduler.h"
 
-/*----------------------------- entry point ---------------------------------*/
 int main() {
     
     /* local variables */
@@ -64,13 +56,11 @@ int main() {
     go();
 }
 
-/* -------------------------------- p_idle --------------------------------- */
 void p_idle() {
     asm volatile ("sti");
     while (TRUE);
 }
 
-/* ------------------------------ p_keyboard ------------------------------- */
 void p_keyboard() {
     char value;
     char end = NULL_TERMINATOR;
@@ -88,7 +78,6 @@ void p_keyboard() {
     }
 }
 
-/* ---------------------------------- p1 ----------------------------------- */
 void p1() {
     unsigned int count = 0;
     char message[] = "process 1: ";
@@ -104,7 +93,6 @@ void p1() {
     }
 }
 
-/* ---------------------------------- p2 ----------------------------------- */
 void p2() {
     unsigned int count = 0;
     char message[] = "process 2: ";
@@ -120,7 +108,6 @@ void p2() {
     }
 }
 
-/* ---------------------------------- p3 ----------------------------------- */
 void p3() {
     unsigned int count = 0;
     char message[] = "process 3: ";
@@ -136,7 +123,6 @@ void p3() {
     }
 }
 
-/* ---------------------------------- p4 ----------------------------------- */
 void p4() {
     unsigned int count = 0;
     char message[] = "process 4: ";
@@ -152,7 +138,6 @@ void p4() {
     }
 }
 
-/* ---------------------------------- p5 ----------------------------------- */
 void p5() {
     unsigned int count = 0;
     char message[] = "process 5: ";
